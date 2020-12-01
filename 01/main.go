@@ -4,6 +4,7 @@ import (
 	"aoc/utils"
 	"fmt"
 	"io/ioutil"
+	"path/filepath"
 	"strings"
 )
 
@@ -41,7 +42,8 @@ func findThreeWithSum(values []int) int {
 }
 
 func main() {
-	data, err := ioutil.ReadFile("./01/01.txt")
+	p := filepath.Join("01", "01.txt")
+	data, err := ioutil.ReadFile(p)
 	if err != nil {
 		panic(err)
 	}
