@@ -9,12 +9,9 @@ import (
 )
 
 func findTwoWithSum(values []int) int {
-	for i := 0; i < len(values); i++ {
-		for j := i + 1; j < len(values); j++ {
-			one := values[i]
-			two := values[j]
-
-			if one+two == 2020 {
+	for i, one := range values {
+		for _, two := range values[i:] {
+			if (one + two) == 2020 {
 				return one * two
 			}
 		}
@@ -24,13 +21,9 @@ func findTwoWithSum(values []int) int {
 }
 
 func findThreeWithSum(values []int) int {
-	for i := 0; i < len(values); i++ {
-		for j := i + 1; j < len(values); j++ {
-			for k := j + 1; k < len(values); k++ {
-				one := values[i]
-				two := values[j]
-				three := values[k]
-
+	for i, one := range values {
+		for j, two := range values[i:] {
+			for _, three := range values[j:] {
 				if one+two+three == 2020 {
 					return one * two * three
 				}
