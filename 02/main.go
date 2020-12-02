@@ -47,11 +47,11 @@ func parsePassword(str string) Password {
 	return Password{Low: min, High: max, Letter: letter, Value: value}
 }
 
-func countInvalidPasswords(passwords []string, policyFunc func(password Password) bool) int {
+func countValidPasswords(passwords []string, isValidFunc func(password Password) bool) int {
 	invalidPasswords := 0
 
 	for _, password := range passwords {
-		if policyFunc(parsePassword(password)) {
+		if isValidFunc(parsePassword(password)) {
 			invalidPasswords++
 		}
 	}
@@ -71,6 +71,6 @@ func main() {
 		return s != ""
 	})
 
-	fmt.Println("Part one:", countInvalidPasswords(lines, isValidPolicyOne))
-	fmt.Println("Part two:", countInvalidPasswords(lines, isValidPolicyTwo))
+	fmt.Println("Part one:", countValidPasswords(lines, isValidPolicyOne))
+	fmt.Println("Part two:", countValidPasswords(lines, isValidPolicyTwo))
 }
