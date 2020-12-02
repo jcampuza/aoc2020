@@ -9,26 +9,34 @@ import (
 )
 
 func findTwoWithSum(values []int) int {
-	for i, one := range values {
-		for _, two := range values[i:] {
-			if (one + two) == 2020 {
-				return one * two
-			}
+	m := make(map[int]bool)
+
+	for _, v := range values {
+		rem := 2020 - v
+
+		if _, ok := m[rem]; ok {
+			return v * rem
 		}
+
+		m[v] = true
 	}
 
 	return -1
 }
 
 func findThreeWithSum(values []int) int {
-	for i, one := range values {
-		for j, two := range values[i:] {
-			for _, three := range values[j:] {
-				if one+two+three == 2020 {
-					return one * two * three
-				}
+	m := make(map[int]bool)
+
+	for i, v1 := range values {
+		for _, v2 := range values[:i] {
+			rem := 2020 - v1 - v2
+
+			if _, ok := m[rem]; ok {
+				return v1 * v2 * rem
 			}
 		}
+
+		m[v1] = true
 	}
 
 	return -1

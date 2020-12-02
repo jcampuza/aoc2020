@@ -1,6 +1,9 @@
 package utils
 
-import "strconv"
+import (
+	"strconv"
+	"strings"
+)
 
 func SliceAtoi(str []string) []int {
 	tmp := []int{}
@@ -27,4 +30,8 @@ func FilterString(str []string, compare func(string) bool) []string {
 	}
 
 	return tmp
+}
+
+func SplitNewlines(str string) []string {
+	return strings.Split(str, "\n")
 }
