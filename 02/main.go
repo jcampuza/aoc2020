@@ -48,15 +48,15 @@ func parsePassword(str string) Password {
 }
 
 func countValidPasswords(passwords []string, isValidFunc func(password Password) bool) int {
-	invalidPasswords := 0
+	validPasswords := 0
 
 	for _, password := range passwords {
 		if isValidFunc(parsePassword(password)) {
-			invalidPasswords++
+			validPasswords++
 		}
 	}
 
-	return invalidPasswords
+	return validPasswords
 }
 
 func main() {
