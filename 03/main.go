@@ -26,19 +26,6 @@ func createTreeGrid(lines []string) TreeGrid {
 	return grid
 }
 
-func appendHorizontalGrid(grid TreeGrid) TreeGrid {
-	appended := make(TreeGrid, len(grid))
-
-	for i, row := range grid {
-		appended[i] = make([]string, len(row)*2)
-		tmp := make([]string, len(row))
-		copy(tmp, row)
-		appended[i] = append(row, tmp...)
-	}
-
-	return appended
-}
-
 func findTreesEncountered(lines []string, slope Slope) int {
 	grid := createTreeGrid(lines)
 	trees := 0
@@ -46,15 +33,11 @@ func findTreesEncountered(lines []string, slope Slope) int {
 	my, mx := slope.y, slope.x
 
 	for {
-		if x > len(grid[y])-1 {
-			grid = appendHorizontalGrid(grid)
-		}
-
 		if grid[y][x] == "#" {
 			trees++
 		}
 
-		y, x = my+y, mx+x
+		y, x = my+y, (mx+x)%len(grid[y])
 		if y > len(grid)-1 {
 			break
 		}
