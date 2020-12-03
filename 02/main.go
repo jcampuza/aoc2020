@@ -15,19 +15,13 @@ type Password struct {
 	Value     string
 }
 
-func isValidPolicyOne(password Password) bool {
-	count := 0
-
-	for _, char := range password.Value {
-		if byte(char) == password.Letter {
-			count++
-		}
-	}
+func (password Password) isValidPolicyOne() bool {
+	count := strings.Count(password.Value, string(password.Letter))
 
 	return count >= password.Low && count <= password.High
 }
 
-func isValidPolicyTwo(password Password) bool {
+func (password Password) isValidPolicyTwo() bool {
 	positionOne, positionTwo := password.Value[password.Low-1], password.Value[password.High-1]
 
 	if positionOne == password.Letter {
@@ -60,7 +54,7 @@ func countValidPasswords(passwords []string, isValidFunc func(password Password)
 }
 
 func main() {
-	p := filepath.Join("02", "02.txt")
+	p := filepath.Join("02", "input.txt")
 	input, err := ioutil.ReadFile(p)
 	if err != nil {
 		panic(err)
@@ -71,6 +65,6 @@ func main() {
 		return s != ""
 	})
 
-	fmt.Println("Part one:", countValidPasswords(lines, isValidPolicyOne))
-	fmt.Println("Part two:", countValidPasswords(lines, isValidPolicyTwo))
+	fmt.Println("Part one:", countValidPasswords(lines, Password.isValidPolicyOne))
+	fmt.Println("Part two:", countValidPasswords(lines, Password.isValidPolicyTwo))
 }

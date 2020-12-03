@@ -43,7 +43,7 @@ func findThreeWithSum(values []int) int {
 }
 
 func main() {
-	p := filepath.Join("01", "01.txt")
+	p := filepath.Join("01", "input.txt")
 	data, err := ioutil.ReadFile(p)
 	if err != nil {
 		panic(err)

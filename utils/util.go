@@ -35,3 +35,9 @@ func FilterString(str []string, compare func(string) bool) []string {
 func SplitNewlines(str string) []string {
 	return strings.Split(str, "\n")
 }
+
+func GetLines(input []byte) []string {
+	return FilterString(SplitNewlines(string(input)), func(s string) bool {
+		return s != ""
+	})
+}
