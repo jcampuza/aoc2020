@@ -41,3 +41,15 @@ func GetLines(input []byte) []string {
 		return s != ""
 	})
 }
+
+func GetLinesWithEmptyLines(input []byte) []string {
+	return SplitNewlines(string(input))
+}
+
+func TrimLines(lines []string) []string {
+	for i, line := range lines {
+		lines[i] = strings.TrimSpace(line)
+	}
+
+	return lines
+}
