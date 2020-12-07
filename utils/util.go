@@ -46,9 +46,13 @@ func GetLinesWithEmptyLines(input []byte) []string {
 	return SplitNewlines(string(input))
 }
 
+func TrimLine(line string) string {
+	return strings.TrimSpace(line)
+}
+
 func TrimLines(lines []string) []string {
 	for i, line := range lines {
-		lines[i] = strings.TrimSpace(line)
+		lines[i] = TrimLine(line)
 	}
 
 	return lines
