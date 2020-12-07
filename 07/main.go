@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func partOne(lines []string, m map[string]bool, rule string) map[string]bool {
+func _partOne(lines []string, rule string, m map[string]bool) map[string]bool {
 	oLen := len(m)
 
 	for _, line := range lines {
@@ -17,7 +17,6 @@ func partOne(lines []string, m map[string]bool, rule string) map[string]bool {
 		left, right := str[0], str[1]
 
 		if strings.Contains(right, rule) {
-
 			m[left[0:len(left)-1]] = true
 		}
 	}
@@ -27,13 +26,17 @@ func partOne(lines []string, m map[string]bool, rule string) map[string]bool {
 	}
 
 	for k := range m {
-		m = partOne(lines, m, k)
+		m = _partOne(lines, k, m)
 	}
 
 	return m
 }
 
-func partTwo(lines []string, rule string, count int) int {
+func partOne(lines []string, rule string) int {
+	return len(_partOne(lines, rule, map[string]bool{}))
+}
+
+func _partTwo(lines []string, rule string, count int) int {
 	for _, line := range lines {
 		str := strings.Split(line, "contain")
 
@@ -45,12 +48,16 @@ func partTwo(lines []string, rule string, count int) int {
 			for _, nRule := range rules {
 				value, _ := strconv.Atoi(string(nRule[0]))
 				nRuleString := nRule[2:]
-				count += value * partTwo(lines, nRuleString, 1)
+				count += value * _partTwo(lines, nRuleString, 1)
 			}
 		}
 	}
 
 	return count
+}
+
+func partTwo(lines []string, rule string) int {
+	return _partTwo(lines, rule, 1) - 1
 }
 
 func main() {
@@ -66,6 +73,6 @@ func main() {
 		lines[i] = line[:len(line)-1]
 	}
 
-	fmt.Println("Part one", len(partOne(lines, map[string]bool{}, "shiny gold")))
-	fmt.Println("Part two", partTwo(lines, "shiny gold", 1)-1)
+	fmt.Println("Part one", partOne(lines, "shiny gold"))
+	fmt.Println("Part two", partTwo(lines, "shiny gold"))
 }
