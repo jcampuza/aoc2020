@@ -38,15 +38,21 @@ func partOne(nums []int, preambleSize int) int {
 }
 
 func findContigousSubarray(arr []int, val int) []int {
-	for i := 0; i < len(arr); i++ {
-		sum := arr[i]
-		for j := i + 1; j < len(arr); j++ {
-			sum += arr[j]
+	start, end := 0, 1
+	sum := arr[start]
 
-			if sum == val {
-				return arr[i : j+1]
-			}
+	for end < len(arr) {
+		for sum > val {
+			sum -= arr[start]
+			start++
 		}
+
+		if sum == val {
+			return arr[start:end]
+		}
+
+		sum += arr[end]
+		end++
 	}
 
 	return []int{}
