@@ -8,11 +8,11 @@ import (
 	"strings"
 )
 
-func findTwoWithSum(values []int) int {
+func FindTwoWithSum(values []int, sum int) int {
 	m := make(map[int]bool)
 
 	for _, v := range values {
-		rem := 2020 - v
+		rem := sum - v
 
 		if _, ok := m[rem]; ok {
 			return v * rem
@@ -24,12 +24,12 @@ func findTwoWithSum(values []int) int {
 	return -1
 }
 
-func findThreeWithSum(values []int) int {
+func FindThreeWithSum(values []int, sum int) int {
 	m := make(map[int]bool)
 
 	for i, v1 := range values {
 		for _, v2 := range values[:i] {
-			rem := 2020 - v1 - v2
+			rem := sum - v1 - v2
 
 			if _, ok := m[rem]; ok {
 				return v1 * v2 * rem
@@ -57,6 +57,6 @@ func main() {
 
 	nums := utils.SliceAtoi(lines)
 
-	fmt.Println("Part one:", findTwoWithSum(nums))
-	fmt.Println("Part two:", findThreeWithSum(nums))
+	fmt.Println("Part one:", FindTwoWithSum(nums, 2020))
+	fmt.Println("Part two:", FindThreeWithSum(nums, 2020))
 }
