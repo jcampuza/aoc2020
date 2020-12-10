@@ -57,3 +57,41 @@ func TrimLines(lines []string) []string {
 
 	return lines
 }
+
+func GetLinesInt(input []byte) []int {
+	ints := []int{}
+
+	for _, line := range GetLines(input) {
+		v, _ := strconv.Atoi(line)
+		ints = append(ints, v)
+	}
+
+	return ints
+}
+
+// Just calculat both since it can be done with one loop
+func MinMax(nums []int) (min, max int) {
+	min = nums[0]
+	max = nums[0]
+	for _, value := range nums {
+		if min > value {
+			min = value
+		}
+
+		if max < value {
+			max = value
+		}
+	}
+
+	return min, max
+}
+
+func Min(nums []int) int {
+	min, _ := MinMax(nums)
+	return min
+}
+
+func Max(nums []int) int {
+	_, max := MinMax(nums)
+	return max
+}
