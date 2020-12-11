@@ -4,7 +4,6 @@ import (
 	"aoc/utils"
 	"fmt"
 	"io/ioutil"
-	"math"
 	"path/filepath"
 	"strings"
 )
@@ -46,17 +45,8 @@ func getSurroundingOccupiedSeats(grid []string, pX, pY, sight int) int {
 
 	for _, position := range positions {
 		for s := 1; s <= sight; s++ {
-			x := position[0] * s
-			y := position[1] * s
-			isDiagonal := math.Abs(float64(x)) == math.Abs(float64(x))
-			isVertical, isHorizontal := y == 0, x == 0
-
-			if !isDiagonal && !isHorizontal && !isVertical {
-				continue
-			}
-
-			posY := pY + y
-			posX := pX + x
+			posY := pY + (position[0] * s)
+			posX := pX + (position[1] * s)
 			isYInBounds := posY >= 0 && posY < len(grid)
 			isXInBounds := posX >= 0 && posX < len(grid[0])
 
