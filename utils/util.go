@@ -1,8 +1,10 @@
 package utils
 
 import (
+	"log"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func SliceAtoi(str []string) []int {
@@ -70,7 +72,7 @@ func GetLinesInt(input []byte) []int {
 }
 
 // Just calculat both since it can be done with one loop
-func MinMax(nums []int) (min, max int) {
+func MinMax(nums ...int) (min, max int) {
 	min = nums[0]
 	max = nums[0]
 	for _, value := range nums {
@@ -86,12 +88,23 @@ func MinMax(nums []int) (min, max int) {
 	return min, max
 }
 
-func Min(nums []int) int {
-	min, _ := MinMax(nums)
+func Min(nums ...int) int {
+	min, _ := MinMax(nums...)
 	return min
 }
 
-func Max(nums []int) int {
-	_, max := MinMax(nums)
+func Max(nums ...int) int {
+	_, max := MinMax(nums...)
 	return max
+}
+
+func TrackTime(start time.Time, name string) {
+	elapsed := time.Since(start)
+	log.Printf("%s took %s", name, elapsed)
+}
+
+func ReplaceAtIndex(str string, replace rune, index int) string {
+	out := []rune(str)
+	out[index] = replace
+	return string(out)
 }

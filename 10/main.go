@@ -6,9 +6,12 @@ import (
 	"io/ioutil"
 	"path/filepath"
 	"sort"
+	"time"
 )
 
 func partOne(nums []int) int {
+	defer utils.TrackTime(time.Now(), "part one")
+
 	sort.Ints(nums)
 	m := map[int]int{}
 
@@ -30,28 +33,40 @@ type Adapter struct {
 	compatible []*Adapter
 }
 
-func countTotalPaths(adapter *Adapter) int {
-	// Only if we haven't already, calculated the number of paths from this adapter
-	if adapter.paths == -1 {
-		// Last in chain, return 1 compatible path
-		if len(adapter.compatible) == 0 {
-			return 1
-		}
-
-		adapter.paths = 0
-		for _, adapterCompat := range adapter.compatible {
-			adapter.paths += countTotalPaths(adapterCompat)
-		}
-
+func _countTotalPaths(adapter *Adapter, memory map[*Adapter]int) int {
+	if v, ok := memory[adapter]; ok {
+		return v
 	}
 
-	return adapter.paths
+	if len(adapter.compatible) == 0 {
+		return 1
+	}
+
+	sum := 0
+	for _, adapterCompat := range adapter.compatible {
+		sum += _countTotalPaths(adapterCompat, memory)
+	}
+
+	memory[adapter] = sum
+
+	return sum
+}
+
+func countTotalPaths(adapter *Adapter) int {
+	memory := map[*Adapter]int{}
+	return _countTotalPaths(adapter, memory)
 }
 
 func partTwo(nums []int) int {
+	defer utils.TrackTime(time.Now(), "part two")
+
 	// Adapter list with "ground" first
 	adapters := []Adapter{
-		{jolts: 0, paths: -1, compatible: []*Adapter{}},
+		{
+			jolts:      0,
+			paths:      -1,
+			compatible: []*Adapter{},
+		},
 	}
 
 	for _, num := range nums {
@@ -62,7 +77,6 @@ func partTwo(nums []int) int {
 		})
 	}
 
-	// Build list of adapters w/ compatible paths
 	for i := range adapters {
 		for j := range adapters {
 			if (adapters[j].jolts > adapters[i].jolts) && (adapters[j].jolts-adapters[i].jolts) <= 3 {

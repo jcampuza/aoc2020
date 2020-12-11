@@ -61,7 +61,7 @@ func findContigousSubarray(arr []int, val int) []int {
 func partTwo(nums []int, preambleSize int) int {
 	val, _ := _partOne(nums, preambleSize)
 	subarr := findContigousSubarray(nums, val)
-	min, max := utils.MinMax(subarr)
+	min, max := utils.MinMax(subarr...)
 
 	return min + max
 }
