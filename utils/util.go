@@ -108,3 +108,11 @@ func ReplaceAtIndex(str string, replace rune, index int) string {
 	out[index] = replace
 	return string(out)
 }
+
+func AbsI(v int) int {
+	if v < 0 {
+		return -v
+	}
+
+	return v
+}
