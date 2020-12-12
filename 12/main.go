@@ -63,7 +63,7 @@ func rotatePosition(pos position, dir string, value int) position {
 func rotateWaypoint(waypoint position, dir string, value int) position {
 	updated := waypoint
 
-	for value > 0 {
+	for v := value; v > 0; v -= 90 {
 		switch dir {
 		case "L":
 			updated.x, updated.y = -waypoint.y, waypoint.x
@@ -72,8 +72,8 @@ func rotateWaypoint(waypoint position, dir string, value int) position {
 		}
 
 		waypoint = updated
-		value -= 90
 	}
+
 	return waypoint
 }
 
