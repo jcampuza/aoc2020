@@ -60,20 +60,6 @@ func partOne(instructions []string) int {
 	return min.id * (min.time - departure)
 }
 
-func isScheduleIncremental(schedule []BusStop) bool {
-	for i, stop := range schedule {
-		if stop.id == 0 {
-			continue
-		}
-
-		if stop.time != schedule[0].time+i {
-			return false
-		}
-	}
-
-	return true
-}
-
 func findAlignedSchedule(busses []BusStop) int {
 	time := 0
 	step := 1
