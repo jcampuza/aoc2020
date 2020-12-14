@@ -7,6 +7,14 @@ import (
 	"time"
 )
 
+const MaxUint = ^uint(0)
+
+const MinUint = 0
+
+const MaxInt = int(MaxUint >> 1)
+
+const MinInt = -MaxInt - 1
+
 func SliceAtoi(str []string) []int {
 	tmp := []int{}
 
@@ -114,5 +122,10 @@ func AbsI(v int) int {
 		return -v
 	}
 
+	return v
+}
+
+func ParseInt(str string) int {
+	v, _ := strconv.Atoi(str)
 	return v
 }
