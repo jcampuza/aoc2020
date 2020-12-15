@@ -15,19 +15,19 @@ func partTwo(numbers []int, iters int) int {
 		memory[instruction] = i
 	}
 
-	for i := len(numbers); i < iters; i++ {
-		instruction := numbers[i-1]
+	prev := numbers[len(numbers)-1]
 
+	for i := len(numbers); i < iters; i++ {
 		toSpeak := 0
-		if lastIndex, ok := memory[instruction]; ok {
+		if lastIndex, ok := memory[prev]; ok {
 			toSpeak = i - 1 - (lastIndex)
 		}
 
-		numbers = append(numbers, toSpeak)
-		memory[instruction] = i - 1
+		memory[prev] = i - 1
+		prev = toSpeak
 	}
 
-	return numbers[iters-1]
+	return prev
 }
 
 func partOne(instructions []int, iters int) int {
